@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using apishop.Data;
 using apishop.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace apishop.Controllers
 {
@@ -14,8 +16,8 @@ namespace apishop.Controllers
         [Route("")]
         public async Task<ActionResult<List<Category>>> getAllCategories([FromServices] DataContext context)
         {
-            List<Category> list = context.Categories.FindAsync();
-            return list;
+            // List<Category> list = context.Categories.FindAsync();
+            return Ok();
         }
 
         [HttpGet]
@@ -67,7 +69,11 @@ namespace apishop.Controllers
                 await context.SaveChangesAsync();
                 return Ok(model);
             }
-            catch
+            catch (DbUpdateConcurrencyException)
+            {
+                BadRequest(new { message = "Esse registro ja foi atualizado" });
+            }
+            catch (Exception)
             {
 
                 BadRequest(new { message = "Não foi possivel alterar essac categoria" });
@@ -80,9 +86,23 @@ namespace apishop.Controllers
 
         [HttpDelete]
         [Route("{Id:int}")]
-        public async Task<ActionResult<Category>> deleteOneCategory(int Id)
+        public async Task<ActionResult<Category>> deleteOneCategory([FromServices] DataContext context, int Id)
         {
-            return Ok();
+            var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == Id);
+            if (category == null)
+                NotFound(new { message = "Categoria não encontrada" });
+
+            try
+            {
+                context.Categories.Remove(category);
+                await context.SaveChangesAsync();
+                return Ok(new { message = "Categoria removida!" });
+            }
+            catch (Exception)
+            {
+                // TODO
+                return BadRequest(new { message = "Não foi possivel remover essa categoria" });
+            }
         }
 
     }
