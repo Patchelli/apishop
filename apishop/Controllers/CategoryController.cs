@@ -16,15 +16,16 @@ namespace apishop.Controllers
         [Route("")]
         public async Task<ActionResult<List<Category>>> getAllCategories([FromServices] DataContext context)
         {
-            // List<Category> list = context.Categories.FindAsync();
-            return Ok();
+            List<Category> list = await context.Categories.AsNoTracking().ToListAsync();
+            return Ok(list);
         }
 
         [HttpGet]
         [Route("{Id:int}")]
-        public async Task<ActionResult<Category>> getOneCategoryById(int Id)
+        public async Task<ActionResult<Category>> getOneCategoryById(int Id, [FromServices] DataContext context)
         {
-            return new Category();
+            Category category = await context.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
+            return Ok(category);
         }
 
         [HttpPost]
