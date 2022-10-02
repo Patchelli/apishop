@@ -66,7 +66,7 @@ namespace apishop.Controllers
                 return NotFound(new { message = "Categoria não encontrada" });
             try
             {
-                context.Entry<Category>(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.Entry<Category>(model).State = EntityState.Modified;
                 await context.SaveChangesAsync();
                 return Ok(model);
             }
