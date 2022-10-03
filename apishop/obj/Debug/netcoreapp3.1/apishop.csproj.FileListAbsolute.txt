@@ -49,3 +49,4 @@ C:\projects\balta\apidriven\apishop\apishop\bin\Debug\netcoreapp3.1\runtimes\uni
 C:\projects\balta\apidriven\apishop\apishop\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\projects\balta\apidriven\apishop\apishop\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\projects\balta\apidriven\apishop\apishop\obj\Debug\netcoreapp3.1\apishop.csproj.CopyComplete
+C:\projects\balta\apidriven\apishop\apishop\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll

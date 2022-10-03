@@ -21,7 +21,9 @@ namespace apishop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            // services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            services.AddDbContext<DataContext>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("connectionStrings")));
             services.AddScoped<DataContext, DataContext>();
         }
 
